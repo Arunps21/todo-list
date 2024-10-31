@@ -33,4 +33,19 @@ const delTodo = async (req, res) => {
   res.json("Data deleted successfully");
 };
 
-module.exports = { todo, getTodo, delTodo };
+//edit
+const editTodo = async (req, res) => {
+  const id = req.headers.id;
+  const list = await todoModel.find({ _id: id });
+  res.json(list);
+};
+
+//update
+const updateTodo = async(req, res) => {
+  const id = req.headers.id;
+  const { title, description, date, time } = req.body;
+  await todoModel.updateOne({_id:id},{title, description, date, time})
+  res.json("Data Updated succesfully")
+};
+
+module.exports = { todo, getTodo, delTodo, editTodo, updateTodo};

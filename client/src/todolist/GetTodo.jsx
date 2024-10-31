@@ -86,7 +86,7 @@ function GetTodo() {
                     <TableCell>{list.date}</TableCell>
                     <TableCell>{list.time}</TableCell>
                     <TableCell>
-                      <Button>
+                      <Button href={`/getTodo/${list._id}`}>
                         <EditIcon />
                       </Button>
                       <Button onClick={() => delFun(list._id)}>
