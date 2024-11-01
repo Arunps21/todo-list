@@ -10,6 +10,11 @@ app.use(express.json());
 const router = require('./router/routes');
 app.use("/todoRouter", router);
 
+//user router
+const userRouter = require('./router/userRoutes')
+app.use("/userRouter/",userRouter)
+
+
 // mongoose
 const mongoose = require("mongoose");
 const main = () => {

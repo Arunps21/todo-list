@@ -1,0 +1,93 @@
+import React, { useState } from "react";
+import { Container, TextField, Button, Grid, Paper } from "@mui/material";
+import axios from "axios";
+
+function UserReg() {
+  const [user, setUser] = useState({});
+  const formData = new FormData();
+  const regFun = (event) => {
+    setUser({ ...user, [event.target.name]: event.target.value });
+  };
+  const imageFun = (event) => {
+    setUser({ ...user, [event.target.name]: event.target.files[0] });
+  };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    formData.append("fullname", user.fullname);
+    formData.append("images", user.images);
+    formData.append("email", user.email);
+    formData.append("password", user.password);
+    try {
+      const { data } = await axios.post(
+        "http://localhost:9000/userRouter/reg",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-Data",
+          },
+        }
+      );
+      alert(data.message);
+    } catch (err) {
+      console.log("Error", err);
+    }
+  };
+  return (
+    <Container maxWidth="sm">
+      <Paper elevation={3} className="p-3 mt-5 rounded">
+        <form encType="multipart/form-data" onSubmit={handleSubmit}>
+          <Grid container spacing={2} justifyContent="center">
+            <Grid item xs={12}>
+              <TextField
+                label="Full Name"
+                type="text"
+                name="fullname"
+                onChange={regFun}
+                required
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Images"
+                type="file"
+                name="images"
+                onChange={imageFun}
+                required
+                InputLabelProps={{ shrink: true }}
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Email"
+                type="email"
+                name="email"
+                onChange={regFun}
+                required
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Password"
+                type="password"
+                name="password"
+                onChange={regFun}
+                required
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={12} display="flex" justifyContent="center">
+              <Button type="submit" variant="contained" color="primary">
+                Register
+              </Button>
+            </Grid>
+          </Grid>
+        </form>
+      </Paper>
+    </Container>
+  );
+}
+
+export default UserReg;
