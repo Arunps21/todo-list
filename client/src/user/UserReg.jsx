@@ -27,7 +27,7 @@ function UserReg() {
           },
         }
       );
-      alert(data.message);
+      alert(data);
     } catch (err) {
       console.log("Error", err);
     }

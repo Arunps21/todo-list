@@ -5,7 +5,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 
 const EditTodo = () => {
   const [title, setTitle] = useState("");
@@ -13,6 +13,7 @@ const EditTodo = () => {
   const [date, setDate] = useState(null);
   const [time, setTime] = useState(null);
   const ref = useRef(null);
+  const navigate = useNavigate()
 
   const editFun = async () => {
     try {
@@ -41,6 +42,7 @@ const EditTodo = () => {
       { headers: { id: params.id } }
     );
     alert(data);
+    navigate("/")
   };
   useEffect(() => {
     editFun();
@@ -66,7 +68,6 @@ const EditTodo = () => {
           Edit Todo
         </Typography>
         <TextField
-          label="Title"
           variant="outlined"
           name="title"
           fullWidth
@@ -74,7 +75,6 @@ const EditTodo = () => {
           required
         />
         <TextField
-          label="Description"
           variant="outlined"
           multiline
           name="description"
@@ -83,14 +83,12 @@ const EditTodo = () => {
           onChange={(e) => setDescription(e.target.value)}
           required
         />
-        <DatePicker
-          label="Date"
+        <TextField
           onChange={(newDate) => setDate(newDate)}
           name="date"
           slotProps={{ textField: { fullWidth: true, required: true } }}
         />
-        <TimePicker
-          label="Time"
+        <TextField
           onChange={(newTime) => setTime(newTime)}
           name="time"
           slotProps={{ textField: { fullWidth: true, required: true } }}
@@ -101,10 +99,8 @@ const EditTodo = () => {
           color="primary"
           sx={{ width: "50%", mx: "auto" }}
         >
-          Add Todo
+          Edit Todo
         </Button>
-        <Button href="/">Home</Button>
-        <Button href="/getTodo">View Todo</Button>
       </Box>
     </LocalizationProvider>
   );

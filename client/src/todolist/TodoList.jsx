@@ -99,7 +99,6 @@ const TodoList = () => {
         >
           Add Todo
         </Button>
-        <Button href="/getTodo">View Todo</Button>
       </Box>
     </LocalizationProvider>
   );
