@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { Container, TextField, Button, Grid, Paper } from "@mui/material";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function UserReg() {
   const [user, setUser] = useState({});
   const formData = new FormData();
+  const navigate = useNavigate();
   const regFun = (event) => {
     setUser({ ...user, [event.target.name]: event.target.value });
   };
@@ -27,7 +29,11 @@ function UserReg() {
           },
         }
       );
-      alert(data);
+      if (data.status == 201) {
+        navigate("/userLogin");
+      } else {
+        alert(data.msg);
+      }
     } catch (err) {
       console.log("Error", err);
     }
@@ -84,6 +90,7 @@ function UserReg() {
               </Button>
             </Grid>
           </Grid>
+         <p className="text-center mt-3">If you are already a user <a href="/userLogin">Login Here</a></p>
         </form>
       </Paper>
     </Container>

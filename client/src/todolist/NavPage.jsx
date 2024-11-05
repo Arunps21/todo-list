@@ -19,7 +19,7 @@ import Button from '@mui/material/Button';
 const drawerWidth = 240;
 const navItems = [
   { label: 'Home', path: '/' },
-  { label: 'Login', path: '/regTodo' },
+  { label: 'Sign UP', path: '/regTodo' },
   { label: 'Contact', path: '/contact' },
 ];
 
@@ -41,8 +41,8 @@ function NavPage(props) {
         {navItems.map((item) => (
           <ListItem key={item.label} disablePadding>
             <ListItemButton
-              component={Link} // Use Link for navigation
-              to={item.path} // Set path to each route
+              component={Link} 
+              to={item.path} 
               sx={{ textAlign: 'center' }}
             >
               <ListItemText primary={item.label} />
