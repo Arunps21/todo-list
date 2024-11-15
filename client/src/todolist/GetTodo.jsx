@@ -17,7 +17,7 @@ import context from "./ComponentProvider";
 function GetTodo() {
   const [todo, setTodo] = useState([]);
   const { component } = useContext(context);
-
+  const userId = localStorage.getItem("userId")
   useEffect(() => {
     axios
       .get("http://localhost:9000/todoRouter/gettodo")
