@@ -44,4 +44,20 @@ const userLogin = async (req, res) => {
   }
 };
 
-module.exports = { userReg, userLogin };
+const userView = async(req,res)=>{
+  try{
+    const {userid} = req.headers
+    const view = await userModel.find({_id:userid})
+    if(view.length>0){
+      res.status(201).json(view)
+    }
+    else{
+      res.status(200).json([])
+    }
+  }
+  catch(err){
+    res.status(500).json("Erro",err)
+  }
+}
+
+module.exports = { userReg, userLogin, userView };

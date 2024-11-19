@@ -14,6 +14,7 @@ import React, { useEffect, useState } from "react";
 
 function UserHome() {
   const [todo, setTodo] = useState([]);
+  const [user, setUser] = useState([]);
   const userId = localStorage.getItem("userId")
   useEffect(() => {
     axios
@@ -44,9 +45,30 @@ function UserHome() {
     }
   };
 
+  const viewFun=async()=>{
+    const {data} = await axios.get("http://localhost:9000/userRouter/userView",{
+      headers:{
+        userid:userId
+      }
+    })
+    setUser(data)
+  }
+useEffect(()=>{
+  viewFun()
+},[])
   return (
     <>
       <Container>
+        {
+          user.length>0 &&
+          user.map((view)=>(
+           <div key={view._id}>
+              <h1>{view.fullname}</h1>
+              <img style={{height:"100px", width:"100px", borderRadius:"50%"}} src={`http://localhost:9000/${view.images}`} alt="Image Not Found" />
+              
+           </div>
+          ))
+        }
         <Table>
           <TableHead>
             <TableRow>
